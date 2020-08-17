@@ -8,9 +8,11 @@
 import React from "react"
 import PropTypes from "prop-types"
 import { useStaticQuery, graphql } from "gatsby"
-
-import Header from "./header"
+import styled from "styled-components"
 import "./layout.css"
+import Header from "./header"
+import Footer from "./Footer"
+import Div960 from "../styles/Div960"
 
 const Layout = ({ children }) => {
   const data = useStaticQuery(graphql`
@@ -24,23 +26,13 @@ const Layout = ({ children }) => {
   `)
 
   return (
-    <>
+    <Wrapper>
       <Header siteTitle={data.site.siteMetadata.title} />
-      <div
-        style={{
-          margin: `0 auto`,
-          maxWidth: 960,
-          padding: `0 1.0875rem 1.45rem`,
-        }}
-      >
-        <main>{children}</main>
-        <footer>
-          © {new Date().getFullYear()}, Built with
-          {` `}
-          <a href="https://www.gatsbyjs.org">Gatsby</a>
-        </footer>
-      </div>
-    </>
+      <main>
+        <Div960WithSmallerPadding>{children}</Div960WithSmallerPadding>
+      </main>
+      <Footer />
+    </Wrapper>
   )
 }
 
@@ -49,3 +41,19 @@ Layout.propTypes = {
 }
 
 export default Layout
+
+const Wrapper = styled.div`
+  display: grid;
+  grid-template-rows: 1fr auto;
+
+  Footer {
+    grid-row-start: 3;
+    grid-row-end: 4;
+  }
+`
+
+const Div960WithSmallerPadding = styled.div`
+  margin: 0 auto;
+  max-width: 960px;
+  padding: 0 1.0875rem 1.45rem;
+`
