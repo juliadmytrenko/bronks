@@ -1,11 +1,13 @@
 import { Link } from "gatsby"
-import PropTypes from "prop-types"
 import React from "react"
-import Div960 from "../styles/Div960"
 
-const Header = ({ siteTitle }) => (
+interface HeaderProps {
+  siteTitle: string
+}
+
+const Header = ({ siteTitle }: HeaderProps) => (
   <header>
-    <Div960>
+    <div className="width960">
       <h1 style={{ margin: 0 }}>
         <Link
           to="/"
@@ -17,16 +19,8 @@ const Header = ({ siteTitle }) => (
           {siteTitle}
         </Link>
       </h1>
-    </Div960>
+    </div>
   </header>
 )
-
-Header.propTypes = {
-  siteTitle: PropTypes.string,
-}
-
-Header.defaultProps = {
-  siteTitle: ``,
-}
 
 export default Header

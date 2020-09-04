@@ -8,13 +8,16 @@
 import React from "react"
 import PropTypes from "prop-types"
 import { useStaticQuery, graphql } from "gatsby"
-import styled from "styled-components"
 import "./layout.css"
+import "./../styles/styles.scss"
 import Header from "./header"
 import Footer from "./Footer"
-import Div960 from "../styles/Div960"
 
-const Layout = ({ children }) => {
+interface LayoutProps {
+  children: React.ReactNode
+}
+
+const Layout = ({ children }: LayoutProps) => {
   const data = useStaticQuery(graphql`
     query SiteTitleQuery {
       site {
@@ -26,13 +29,13 @@ const Layout = ({ children }) => {
   `)
 
   return (
-    <Wrapper>
+    <div className="layout">
       <Header siteTitle={data.site.siteMetadata.title} />
       <main>
-        <Div960WithSmallerPadding>{children}</Div960WithSmallerPadding>
+        <div className="width960 smallerPadding main__content">{children}</div>
       </main>
       <Footer />
-    </Wrapper>
+    </div>
   )
 }
 
@@ -41,19 +44,3 @@ Layout.propTypes = {
 }
 
 export default Layout
-
-const Wrapper = styled.div`
-  display: grid;
-  grid-template-rows: 1fr auto;
-
-  Footer {
-    grid-row-start: 3;
-    grid-row-end: 4;
-  }
-`
-
-const Div960WithSmallerPadding = styled.div`
-  margin: 0 auto;
-  max-width: 960px;
-  padding: 0 1.0875rem 1.45rem;
-`
