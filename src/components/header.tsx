@@ -8,7 +8,7 @@ interface HeaderProps {
 const Header = ({ siteTitle }: HeaderProps) => (
   <header>
     <div className="width960">
-      <h1 style={{ margin: 0 }}>
+      <h1 style={{ margin: 0, display: "inline" }}>
         <Link
           to="/"
           style={{
@@ -19,6 +19,9 @@ const Header = ({ siteTitle }: HeaderProps) => (
           {siteTitle}
         </Link>
       </h1>
+      <a href="#" className="register">
+        Register
+      </a>
     </div>
   </header>
 )

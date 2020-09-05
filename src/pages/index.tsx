@@ -6,6 +6,7 @@ import Image from "../components/image"
 import SEO from "../components/seo"
 import Beers from "./../components/beers"
 
+
 const IndexPage = () => (
   <Layout>
     <SEO title="Home" />

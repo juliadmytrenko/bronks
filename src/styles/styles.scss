@@ -1,4 +1,21 @@
 /* my styles */
+// FUNCTIONS
+// TRICKS
+@function black($opacity) {
+  @return rgba(black, $opacity);
+}
+
+@function white($opacity) {
+  @return rgba(white, $opacity);
+}
+
+// END OF FUNCTIONS
+
+
+
+
+$main-color: rgb(251, 204, 10);
+
 body {
   background-color: rgb(251, 204, 10);
 }
@@ -7,6 +24,7 @@ main {
   background-color: white;
   padding-top: 1.45rem;
   padding-bottom: 1.45rem;
+  position: relative;
 }
 
 header,
@@ -16,9 +34,12 @@ footer {
 
 .layout {
   display: grid;
+  // grid-template-rows: 1fr auto;
   grid-template-rows: 1fr auto;
   grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
   header {
+    grid-row-start: 1;
+    grid-row-end: 2;
     grid-column-start: 1;
     grid-column-end: -1;
   }
@@ -33,6 +54,19 @@ footer {
     grid-row-end: 4;
     grid-column-start: 1;
     grid-column-end: -1;
+  }
+}
+
+header {
+  .width960 {
+    display: flex;
+  }
+  h1 {
+    flex: 1;
+  }
+
+  .register {
+    align-self: flex-end;
   }
 }
 
@@ -66,9 +100,78 @@ footer {
 
   div {
     border: 2px solid black;
-    border-radius: 1rem;
+    border-radius: 0.4rem;
     width: 100%;
     height: 100%;
     background-color: #ffc300;
   }
 }
+
+// form styles
+form {
+}
+
+.registration {
+  position: relative;
+  margin: 0 auto;
+  background: lightseagreen;
+  width: 300px;
+  margin-top: 2rem;
+  max-width: 90vw;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 1rem;
+  h4 {
+    margin: 0 0 0.5rem 0;
+  }
+  border: 0.2rem solid rgb(0,249,255);
+  border-radius: 0.4rem;
+}
+
+label {
+  display: block;
+  margin: 1rem;
+}
+input {
+  border-radius: 2rem;
+  outline: none;
+  padding: 0.2rem 0.5rem;
+}
+input:focus {
+  box-shadow: -1px -1px 0pt 2pt rgb(0,249,255);;
+  border: 2px outset $main-color;
+}
+button:focus {
+  border: 2px outset $main-color;
+}
+
+button {
+  border-radius: 2rem;
+  margin: 1rem;
+  outline: none;
+  padding: 0.5rem;
+}
+
+.overlay {
+  position: absolute;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 1;
+  // background: rgba(black, 0.5);
+}
+
+
+.transparent_background {
+  position: fixed;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  background: black(0.8);
+}
+
+
+
+

@@ -11,7 +11,8 @@ import { useStaticQuery, graphql } from "gatsby"
 import "./layout.css"
 import "./../styles/styles.scss"
 import Header from "./header"
-import Footer from "./Footer"
+import Footer from "./footer"
+import Registration from "./registration"
 
 interface LayoutProps {
   children: React.ReactNode
@@ -30,9 +31,14 @@ const Layout = ({ children }: LayoutProps) => {
 
   return (
     <div className="layout">
+      
       <Header siteTitle={data.site.siteMetadata.title} />
       <main>
-        <div className="width960 smallerPadding main__content">{children}</div>
+        <div className="overlay">
+          <div className="transparent_background"></div>
+          <Registration></Registration>
+        </div>
+          <div className="width960 smallerPadding main__content">{children}</div>
       </main>
       <Footer />
     </div>
