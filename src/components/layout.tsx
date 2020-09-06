@@ -13,12 +13,16 @@ import "./../styles/styles.scss"
 import Header from "./header"
 import Footer from "./footer"
 import Registration from "./registration"
+import { useState } from "react"
+import Overlay from "./overlay"
 
 interface LayoutProps {
   children: React.ReactNode
 }
 
 const Layout = ({ children }: LayoutProps) => {
+  const [displayRegistration, setDisplayRegistration] = useState(false)
+
   const data = useStaticQuery(graphql`
     query SiteTitleQuery {
       site {
@@ -31,12 +35,18 @@ const Layout = ({ children }: LayoutProps) => {
 
   return (
     <div className="layout">
-      <Header siteTitle={data.site.siteMetadata.title} />
+      <Header
+        siteTitle={data.site.siteMetadata.title}
+        displayRegistration={setDisplayRegistration}
+      />
       <main>
-        {/* <div className="overlay">
-          <div className="transparent_background"></div>
-          <Registration></Registration>
-        </div> */}
+        {displayRegistration && (
+          <Overlay displayRegistration={setDisplayRegistration}>
+            <Registration
+              displayRegistration={setDisplayRegistration}
+            ></Registration>
+          </Overlay>
+        )}
         <div className="width960 smallerPadding main__content">{children}</div>
       </main>
       <Footer />

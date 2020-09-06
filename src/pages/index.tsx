@@ -12,6 +12,7 @@ import Image from "../components/image"
 import SEO from "../components/seo"
 import Beers from "./../components/beers"
 import LinkList from "../components/linkList"
+import CreateLink from "../components/createLink"
 
 const httpLink = createHttpLink({
   uri: "http://localhost:4000",
@@ -25,6 +26,7 @@ const client = new ApolloClient({
 const IndexPage = () => (
   <Layout>
     {/* testing components */}
+    <CreateLink></CreateLink>
     <LinkList></LinkList>
     {/* end of testing */}
     <SEO title="Home" />

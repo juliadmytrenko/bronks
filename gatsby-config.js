@@ -10,7 +10,7 @@ module.exports = {
     {
       resolve: "gatsby-plugin-apollo",
       options: {
-        uri: "https://example.com/graphql",
+        uri: "http://localhost:4000/",
       },
     },
     {
