@@ -1,14 +1,32 @@
 import React from "react"
 import { Link } from "gatsby"
+// adding Apollo client
+import { ApolloProvider } from "react-apollo"
+import { ApolloClient } from "apollo-client"
+import { createHttpLink } from "apollo-link-http"
+import { InMemoryCache } from "apollo-cache-inmemory"
+// end
 
 import Layout from "../components/layout"
 import Image from "../components/image"
 import SEO from "../components/seo"
 import Beers from "./../components/beers"
+import LinkList from "../components/linkList"
 
+const httpLink = createHttpLink({
+  uri: "http://localhost:4000",
+})
+
+const client = new ApolloClient({
+  link: httpLink,
+  cache: new InMemoryCache(),
+})
 
 const IndexPage = () => (
   <Layout>
+    {/* testing components */}
+    <LinkList></LinkList>
+    {/* end of testing */}
     <SEO title="Home" />
     <h1>Hi people</h1>
     <p>Welcome to your new Gatsby site.</p>

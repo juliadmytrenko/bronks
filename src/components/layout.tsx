@@ -31,14 +31,13 @@ const Layout = ({ children }: LayoutProps) => {
 
   return (
     <div className="layout">
-      
       <Header siteTitle={data.site.siteMetadata.title} />
       <main>
-        <div className="overlay">
+        {/* <div className="overlay">
           <div className="transparent_background"></div>
           <Registration></Registration>
-        </div>
-          <div className="width960 smallerPadding main__content">{children}</div>
+        </div> */}
+        <div className="width960 smallerPadding main__content">{children}</div>
       </main>
       <Footer />
     </div>

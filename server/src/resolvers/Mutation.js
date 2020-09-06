@@ -1,55 +1,62 @@
-const bcrypt = require("bcryptjs");
-const jwt = require("jsonwebtoken");
-const { APP_SECRET, getUserId } = require("../utils");
+const bcrypt = require('bcryptjs')
+const jwt = require('jsonwebtoken')
+const { APP_SECRET, getUserId } = require('../utils')
 
-const signup = async (parent, args, context, info) => {
-  const password = await bcrypt.hash(args.password, 10);
-  const user = await context.prisma.user.create({
-    data: { ...args, password },
-  });
-  const token = jwt.sign({ userId: user.id }, APP_SECRET);
+function post(parent, args, context) {
+  return context.prisma.createLink({
+    url: args.url,
+    description: args.description,
+  })
+}
+
+async function signup(parent, args, context) {
+  const password = await bcrypt.hash(args.password, 10)
+  const user = await context.prisma.createUser({ ...args, password })
+
+  const token = jwt.sign({ userId: user.id }, APP_SECRET)
 
   return {
     token,
     user,
-  };
-};
+  }
+}
 
-const login = async (parent, args, context, info) => {
-  const user = await context.prisma.user.findOne({
-    where: { email: args.email },
-  });
+async function login(parent, args, context) {
+  const user = await context.prisma.user({ email: args.email })
   if (!user) {
-    throw new Error("No such user found");
+    throw new Error('No such user found')
   }
 
-  const valid = await bcrypt.compare(args.password, user.password);
+  const valid = await bcrypt.compare(args.password, user.password)
   if (!valid) {
-    throw new Error("Invalid password");
+    throw new Error('Invalid password')
   }
-
-  const token = jwt.sign({ userId: user.id }, APP_SECRET);
 
   return {
-    token,
+    token: jwt.sign({ userId: user.id }, APP_SECRET),
     user,
-  };
-};
+  }
+}
 
-const post = (parent, args, context, info) => {
-  const userId = getUserId(context);
+async function vote(parent, args, context) {
+  const userId = getUserId(context)
+  const linkExists = await context.prisma.$exists.vote({
+    user: { id: userId },
+    link: { id: args.linkId },
+  })
+  if (linkExists) {
+    throw new Error(`Already voted for link: ${args.linkId}`)
+  }
 
-  return context.prisma.link.create({
-    data: {
-      url: args.url,
-      description: args.description,
-      postedBy: { connect: { id: userId } },
-    },
-  });
-};
+  return context.prisma.createVote({
+    user: { connect: { id: userId } },
+    link: { connect: { id: args.linkId } },
+  })
+}
 
 module.exports = {
+  post,
   signup,
   login,
-  post,
-};
+  vote,
+}
