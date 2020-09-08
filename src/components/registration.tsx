@@ -1,6 +1,8 @@
 import React, { useState } from "react"
 import { AUTH_TOKEN } from "./../constants.js"
 import { gql, useMutation } from "@apollo/client"
+import { navigate } from "@reach/router"
+import Message from "./message"
 
 const REGISTRATION_MUTATION = gql`
   mutation RegistrationMutation($email: String!, $password: String!) {
@@ -22,22 +24,34 @@ const Registration = ({ displayRegistration }: RegistrationProps) => {
   const [email, setEmail] = useState("")
   const [password, setPassword] = useState("")
   const [passwordVerification, setPasswordVerification] = useState("")
-  const [signup, { error, data }] = useMutation(REGISTRATION_MUTATION, {
+  const [error, setError] = useState(false)
+  const [signup] = useMutation(REGISTRATION_MUTATION, {
     variables: {
       email: email,
       password: password,
     },
   })
 
-  const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
+  const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault()
     if (email && password && passwordVerification) {
-      signup()
+      try {
+        const { data } = await signup()
+        confirm(data)
+      } catch (error) {
+        setError(true)
+      }
     }
   }
 
   const saveUserData = (token: string) => {
     localStorage.setItem(AUTH_TOKEN, token)
+  }
+
+  const confirm = async data => {
+    const { token } = data.signup
+    saveUserData(token)
+    // navigate(`/`)
   }
 
   return (
@@ -49,6 +63,11 @@ const Registration = ({ displayRegistration }: RegistrationProps) => {
         <h4>Please enter your credentials</h4>
         <div>
           <label>
+            {error && (
+              <Message error>
+                User with this email already exists. Please check your email.
+              </Message>
+            )}
             <input
               type="email"
               name="user_email"
@@ -78,7 +97,6 @@ const Registration = ({ displayRegistration }: RegistrationProps) => {
         </div>
         <button type="submit">submit</button>
       </form>
-      {error && <div>ERROR: {error}</div>}
       {/* {data && <div>{data}</div>} */}
     </div>
   )
