@@ -15,13 +15,18 @@ import Footer from "./footer"
 import Registration from "./registration"
 import { useState } from "react"
 import Overlay from "./overlay"
+import Message from "./message"
+import Snackbar from "./snackbar"
 
 interface LayoutProps {
   children: React.ReactNode
 }
 
 const Layout = ({ children }: LayoutProps) => {
-  const [displayRegistration, setDisplayRegistration] = useState(false)
+  const [registration, setRegistration] = useState({
+    display: false,
+    success: false,
+  })
 
   const data = useStaticQuery(graphql`
     query SiteTitleQuery {
@@ -37,14 +42,20 @@ const Layout = ({ children }: LayoutProps) => {
     <div className="layout">
       <Header
         siteTitle={data.site.siteMetadata.title}
-        displayRegistration={setDisplayRegistration}
-      />
+        setRegistration={setRegistration}
+      >
+        {registration.success && (
+          <Snackbar>
+            <span>
+              Please check your email and click the verification link.
+            </span>
+          </Snackbar>
+        )}
+      </Header>
       <main>
-        {displayRegistration && (
-          <Overlay displayRegistration={setDisplayRegistration}>
-            <Registration
-              displayRegistration={setDisplayRegistration}
-            ></Registration>
+        {registration.display && (
+          <Overlay setRegistration={setRegistration}>
+            <Registration setRegistration={setRegistration}></Registration>
           </Overlay>
         )}
         <div className="width960 smallerPadding main__content">{children}</div>

@@ -2,15 +2,17 @@ import React from "react"
 
 interface OverlayProps {
   children: React.ReactNode
-  displayRegistration: Function
+  setRegistration: Function
 }
 
-const Overlay = ({ children, displayRegistration }: OverlayProps) => {
+const Overlay = ({ children, setRegistration }: OverlayProps) => {
   return (
     <div className="overlay">
       <div
         className="transparent_background"
-        onClick={() => displayRegistration(false)}
+        onClick={registation =>
+          setRegistration({ ...registation, display: false })
+        }
       ></div>
       <div className="children">{children}</div>
     </div>

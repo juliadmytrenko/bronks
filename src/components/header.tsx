@@ -3,26 +3,29 @@ import React from "react"
 
 interface HeaderProps {
   siteTitle: string
-  displayRegistration: Function
+  setRegistration: Function
 }
 
-const Header = ({ siteTitle, displayRegistration }: HeaderProps) => {
+const Header = ({ children, siteTitle, setRegistration }: HeaderProps) => {
   return (
     <header>
       <div className="width960">
-        <h1 style={{ margin: 0, display: "inline" }}>
-          <Link
-            to="/"
-            style={{
-              color: `white`,
-              textDecoration: `none`,
-            }}
-          >
-            {siteTitle}
-          </Link>
-        </h1>
-        <Register displayRegistration={displayRegistration}></Register>
-        {/* <Login  ></Login> */}
+        {children}
+        <div className="flex">
+          <h1 style={{ margin: 0, display: "inline" }}>
+            <Link
+              to="/"
+              style={{
+                color: `white`,
+                textDecoration: `none`,
+              }}
+            >
+              {siteTitle}
+            </Link>
+          </h1>
+          <Register setRegistration={setRegistration}></Register>
+          {/* <Login  ></Login> */}
+        </div>
       </div>
     </header>
   )
@@ -31,23 +34,26 @@ const Header = ({ siteTitle, displayRegistration }: HeaderProps) => {
 export default Header
 
 interface RegisterProps {
-  displayRegistration: Function
+  setRegistration: Function
 }
 
 // stworzyc druga strone na ktorej tez jest rejestracja i ten komponent tylko ze ma /registration w url
-const Register = ({ displayRegistration }: RegisterProps) => {
+const Register = ({ setRegistration }: RegisterProps) => {
   return (
-    <div onClick={() => displayRegistration(true)}>
-      <Link to="/#" className="register">
-        Register
-      </Link>
+    <div
+      className="register"
+      onClick={registration =>
+        setRegistration({ ...registration, display: true })
+      }
+    >
+      <Link to="#">Register</Link>
     </div>
   )
 }
 
-const Login = ({ displayRegistration }: RegisterProps) => {
+const Login = ({ setRegistration }: RegisterProps) => {
   return (
-    <div onClick={() => displayRegistration(true)}>
+    <div onClick={() => setRegistration(true)}>
       <Link to="/#" className="login">
         Login
       </Link>

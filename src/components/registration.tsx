@@ -17,13 +17,14 @@ const REGISTRATION_MUTATION = gql`
 `
 
 interface RegistrationProps {
-  displayRegistration: Function
+  setRegistration: Function
 }
 
-const Registration = ({ displayRegistration }: RegistrationProps) => {
+const Registration = ({ setRegistration }: RegistrationProps) => {
   const [email, setEmail] = useState("")
   const [password, setPassword] = useState("")
   const [passwordVerification, setPasswordVerification] = useState("")
+  const [success, setSuccess] = useState(false)
   const [error, setError] = useState(false)
   const [signup] = useMutation(REGISTRATION_MUTATION, {
     variables: {
@@ -52,11 +53,18 @@ const Registration = ({ displayRegistration }: RegistrationProps) => {
     const { token } = data.signup
     saveUserData(token)
     // navigate(`/`)
+    setSuccess(true)
+    setRegistration({ display: false, success: true })
   }
 
   return (
     <div className="registration">
-      <div className="close" onClick={() => displayRegistration(false)}>
+      <div
+        className="close"
+        onClick={registation =>
+          setRegistration({ ...registation, display: false })
+        }
+      >
         <span>✖</span>
       </div>
       <form onSubmit={event => handleSubmit(event)}>
