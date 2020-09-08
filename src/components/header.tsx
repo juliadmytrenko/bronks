@@ -22,6 +22,7 @@ const Header = ({ siteTitle, displayRegistration }: HeaderProps) => {
           </Link>
         </h1>
         <Register displayRegistration={displayRegistration}></Register>
+        {/* <Login  ></Login> */}
       </div>
     </header>
   )
@@ -39,6 +40,16 @@ const Register = ({ displayRegistration }: RegisterProps) => {
     <div onClick={() => displayRegistration(true)}>
       <Link to="/#" className="register">
         Register
+      </Link>
+    </div>
+  )
+}
+
+const Login = ({ displayRegistration }: RegisterProps) => {
+  return (
+    <div onClick={() => displayRegistration(true)}>
+      <Link to="/#" className="login">
+        Login
       </Link>
     </div>
   )

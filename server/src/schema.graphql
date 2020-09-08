@@ -3,6 +3,12 @@ scalar DateTime
 type Query {
   info: String!
   feed(filter: String, skip: Int, first: Int, orderBy: LinkOrderByInput): Feed!
+  users(
+    filter: String
+    skip: Int
+    first: Int
+    orderBy: UserOrderByInput
+  ): Users!
 }
 
 enum LinkOrderByInput {
@@ -18,10 +24,21 @@ type Feed {
   links: [Link!]!
   count: Int!
 }
+# dodac do Usera createdAt, (kiedy zalozyl konto)
+enum UserOrderByInput {
+  email_ASC
+  email_DESC
+}
+
+type Users {
+  users: [User!]!
+  count: Int!
+}
+# potem usunac name przy rejestracji
 
 type Mutation {
   post(url: String!, description: String!): Link!
-  signup(email: String!, password: String!, name: String!): AuthPayload
+  signup(email: String!, password: String!): AuthPayload
   login(email: String!, password: String!): AuthPayload
   vote(linkId: ID!): Vote!
 }
@@ -38,7 +55,7 @@ type AuthPayload {
 
 type User {
   id: ID!
-  name: String!
+  name: String
   email: String!
   links: [Link!]!
 }
