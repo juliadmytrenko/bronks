@@ -45,7 +45,7 @@ const Layout = ({ children }: LayoutProps) => {
         setRegistration={setRegistration}
       >
         {registration.success && (
-          <Snackbar>
+          <Snackbar setRegistration={setRegistration}>
             <span>
               Please check your email and click the verification link.
             </span>

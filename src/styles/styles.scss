@@ -237,6 +237,17 @@ button {
   // transform: translateX(-50%);
   z-index: 1;
   display: inline-block;
+
+  .X {
+    margin: 0;
+    margin-left: 1rem;
+    padding: 0;
+    padding: 0 0.3rem;
+    // border: 1px solid red;
+    &:hover {
+      cursor: pointer;
+    }
+  }
 }
 
 .success {
