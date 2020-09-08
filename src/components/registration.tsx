@@ -59,14 +59,21 @@ const Registration = ({ setRegistration }: RegistrationProps) => {
 
   return (
     <div className="registration">
-      <div
+      {/* <div
+        className="close"
+        onClick={registation =>
+          setRegistration({ ...registation, display: false })
+        }
+      > */}
+      <button
         className="close"
         onClick={registation =>
           setRegistration({ ...registation, display: false })
         }
       >
-        <span>✖</span>
-      </div>
+        ✖
+      </button>
+      {/* </div> */}
       <form onSubmit={event => handleSubmit(event)}>
         <h4>Please enter your credentials</h4>
         <div>

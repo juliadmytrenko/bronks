@@ -5,16 +5,13 @@ interface MessageProps {
   children: React.ReactNode
   success?: boolean
   error?: boolean
-  neutral?: boolean
 }
 
 const Message = ({ className, children, success, error }: MessageProps) => {
   return (
     <div
       className={
-        "message " +
-        (success ? "success " : error ? "error " : "neutral ") +
-        className
+        "message " + (success ? "success " : error ? "error " : "") + className
       }
     >
       <span>{children}</span>

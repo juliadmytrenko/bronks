@@ -8,3 +8,5 @@ div border radius: 0.4 rem
 
 standard input paddings:
 padding: 0.2rem 0.5rem;
+
+ten fajny efekt klikniecia co na stronie material ui jest

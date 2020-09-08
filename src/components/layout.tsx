@@ -28,6 +28,8 @@ const Layout = ({ children }: LayoutProps) => {
     success: false,
   })
 
+  const [displayLoginPanel, setDisplayLoginPanel] = useState(false)
+
   const data = useStaticQuery(graphql`
     query SiteTitleQuery {
       site {
@@ -45,7 +47,7 @@ const Layout = ({ children }: LayoutProps) => {
         setRegistration={setRegistration}
       >
         {registration.success && (
-          <Snackbar setRegistration={setRegistration}>
+          <Snackbar success setRegistration={setRegistration}>
             <span>
               Please check your email and click the verification link.
             </span>
@@ -58,6 +60,11 @@ const Layout = ({ children }: LayoutProps) => {
             <Registration setRegistration={setRegistration}></Registration>
           </Overlay>
         )}
+        {/* {displayLoginPanel && (
+          <Overlay setDisplayLoginPanel={setDisplayLoginPanel}>
+            <LoginPanel setDisplayLoginPanel={setDisplayLoginPanel}></LoginPanel>
+          </Overlay>
+        )} */}
         <div className="width960 smallerPadding main__content">{children}</div>
       </main>
       <Footer />

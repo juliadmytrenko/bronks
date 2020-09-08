@@ -24,7 +24,7 @@ const Header = ({ children, siteTitle, setRegistration }: HeaderProps) => {
             </Link>
           </h1>
           <Register setRegistration={setRegistration}></Register>
-          {/* <Login  ></Login> */}
+          <Login></Login>
         </div>
       </div>
     </header>
@@ -51,12 +51,10 @@ const Register = ({ setRegistration }: RegisterProps) => {
   )
 }
 
-const Login = ({ setRegistration }: RegisterProps) => {
+const Login = () => {
   return (
-    <div onClick={() => setRegistration(true)}>
-      <Link to="/#" className="login">
-        Login
-      </Link>
+    <div className="login">
+      <Link to="/#">Login</Link>
     </div>
   )
 }
