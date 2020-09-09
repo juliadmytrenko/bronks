@@ -18,6 +18,12 @@ import Overlay from "./overlay"
 import Message from "./message"
 import Snackbar from "./snackbar"
 
+// experiments with RxJS
+
+import { Observable } from "rxjs"
+
+// end
+
 interface LayoutProps {
   children: React.ReactNode
 }
@@ -39,6 +45,15 @@ const Layout = ({ children }: LayoutProps) => {
       }
     }
   `)
+
+  const observer = {
+    next: x => {
+      console.log("Observer got a next value: " + x)
+      setRegistration({ success: false, display: false })
+    },
+    error: err => console.error("Observer got an error: " + err),
+    complete: () => console.log("Observer got a complete notification"),
+  }
 
   return (
     <div className="layout">
