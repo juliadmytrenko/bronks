@@ -1,20 +1,15 @@
-import React from "react"
+import React, { useContext } from "react"
+import { useLayoutStore } from "./../store/layoutStore"
 
 interface snackbarProps {
   className?: string
   children: React.ReactNode
   success?: boolean
   error?: boolean
-  setRegistration: Function
 }
 
-const Snackbar = ({
-  className,
-  children,
-  success,
-  error,
-  setRegistration,
-}: snackbarProps) => {
+const Snackbar = ({ className, children, success, error }: snackbarProps) => {
+  const store = useLayoutStore()
   return (
     <div
       className={
@@ -24,9 +19,7 @@ const Snackbar = ({
       {children}
       <button
         className="X"
-        onClick={registration =>
-          setRegistration({ ...registration, success: false })
-        }
+        onClick={() => (store.registeredSuccesfullyMessage = false)}
       >
         ✖
       </button>

@@ -13,6 +13,7 @@ import SEO from "../components/seo"
 import Beers from "./../components/beers"
 import LinkList from "../components/linkList"
 import CreateLink from "../components/createLink"
+import LayoutStoreProvider from "../store/layoutStore"
 
 const httpLink = createHttpLink({
   uri: "http://localhost:4000",
@@ -24,22 +25,24 @@ const client = new ApolloClient({
 })
 
 const IndexPage = () => (
-  <Layout>
-    {/* testing components */}
-    <CreateLink></CreateLink>
-    <LinkList></LinkList>
-    {/* end of testing */}
-    <SEO title="Home" />
-    <h1>Hi people</h1>
-    <p>Welcome to your new Gatsby site.</p>
-    <p>Now go build something great.</p>
-    <div style={{ maxWidth: `300px`, marginBottom: `1.45rem` }}>
-      <Image />
-    </div>
-    <Link to="/page-2/">Go to page 2</Link> <br />
-    <Link to="/using-typescript/">Go to "Using TypeScript"</Link>
-    <Beers></Beers>
-  </Layout>
+  <LayoutStoreProvider>
+    <Layout>
+      {/* testing components */}
+      <CreateLink></CreateLink>
+      <LinkList></LinkList>
+      {/* end of testing */}
+      <SEO title="Home" />
+      <h1>Hi people</h1>
+      <p>Welcome to your new Gatsby site.</p>
+      <p>Now go build something great.</p>
+      <div style={{ maxWidth: `300px`, marginBottom: `1.45rem` }}>
+        <Image />
+      </div>
+      <Link to="/page-2/">Go to page 2</Link> <br />
+      <Link to="/using-typescript/">Go to "Using TypeScript"</Link>
+      <Beers></Beers>
+    </Layout>
+  </LayoutStoreProvider>
 )
 
 export default IndexPage

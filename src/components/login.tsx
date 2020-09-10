@@ -6,9 +6,9 @@ import Message from "./message"
 import { useLayoutStore } from "./../store/layoutStore"
 import Overlay from "./overlay"
 
-const REGISTRATION_MUTATION = gql`
+const LOGIN_MUTATION = gql`
   mutation RegistrationMutation($email: String!, $password: String!) {
-    signup(email: $email, password: $password) {
+    login(email: $email, password: $password) {
       token
       user {
         id
@@ -18,13 +18,12 @@ const REGISTRATION_MUTATION = gql`
   }
 `
 
-const Registration = () => {
+const Login = () => {
   const [email, setEmail] = useState("")
   const [password, setPassword] = useState("")
-  const [passwordVerification, setPasswordVerification] = useState("")
   const [error, setError] = useState(false)
   const store = useLayoutStore()
-  const [signup] = useMutation(REGISTRATION_MUTATION, {
+  const [login] = useMutation(LOGIN_MUTATION, {
     variables: {
       email: email,
       password: password,
@@ -33,39 +32,36 @@ const Registration = () => {
 
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault()
-    if (email && password && passwordVerification) {
+    if (email && password) {
       try {
-        const { data } = await signup()
-        confirm(data)
+        const { data } = await login()
+        // confirm(data)
       } catch (error) {
         setError(true)
       }
     }
   }
 
-  const saveUserData = (token: string) => {
-    localStorage.setItem(AUTH_TOKEN, token)
-  }
-  type Signup = { token: string }
+  //   const saveUserData = (token: string) => {
+  //     localStorage.setItem(AUTH_TOKEN, token)
+  //   }
+  type Login = { token: string }
   interface Data {
-    signup: Signup
+    login: Login
   }
 
-  const confirm = async (data: Data) => {
-    const { token } = data.signup
-    saveUserData(token)
-    // navigate(`/`)
-    store.registrationPanel = false
-    store.registeredSuccesfullyMessage = true
-  }
+  //   const confirm = async (data: Data) => {
+  //     const { token } = data.signup
+  //     saveUserData(token)
+  //     // navigate(`/`)
+  //     store.registrationPanel = false
+  //     store.registeredSuccesfullyMessage = true
+  //   }
 
   return (
     <Overlay>
       <div className="registration">
-        <button
-          className="close"
-          onClick={() => (store.registrationPanel = false)}
-        >
+        <button className="close" onClick={() => (store.loginPanel = false)}>
           ✖
         </button>
         <form onSubmit={event => handleSubmit(event)}>
@@ -94,15 +90,6 @@ const Registration = () => {
                 onChange={e => setPassword(e.target.value)}
               ></input>
             </label>
-            <label>
-              <input
-                type="password"
-                name="user_password_verification"
-                placeholder="verify password"
-                value={passwordVerification}
-                onChange={e => setPasswordVerification(e.target.value)}
-              ></input>
-            </label>
           </div>
           <button type="submit">submit</button>
         </form>
@@ -111,4 +98,4 @@ const Registration = () => {
   )
 }
 
-export default Registration
+export default Login

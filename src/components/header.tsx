@@ -1,12 +1,13 @@
 import { Link, navigate } from "gatsby"
-import React from "react"
+import React, { useContext } from "react"
+import { useLayoutStore } from "./../store/layoutStore"
 
 interface HeaderProps {
+  children: React.ReactNode
   siteTitle: string
-  setRegistration: Function
 }
 
-const Header = ({ children, siteTitle, setRegistration }: HeaderProps) => {
+const Header = ({ children, siteTitle }: HeaderProps) => {
   return (
     <header>
       <div className="width960">
@@ -23,7 +24,7 @@ const Header = ({ children, siteTitle, setRegistration }: HeaderProps) => {
               {siteTitle}
             </Link>
           </h1>
-          <Register setRegistration={setRegistration}></Register>
+          <Register></Register>
           <Login></Login>
         </div>
       </div>
@@ -33,27 +34,20 @@ const Header = ({ children, siteTitle, setRegistration }: HeaderProps) => {
 
 export default Header
 
-interface RegisterProps {
-  setRegistration: Function
-}
-
 // stworzyc druga strone na ktorej tez jest rejestracja i ten komponent tylko ze ma /registration w url
-const Register = ({ setRegistration }: RegisterProps) => {
+const Register = () => {
+  const store = useLayoutStore()
   return (
-    <div
-      className="register"
-      onClick={registration =>
-        setRegistration({ ...registration, display: true })
-      }
-    >
+    <div className="register" onClick={() => (store.registrationPanel = true)}>
       <Link to="#">Register</Link>
     </div>
   )
 }
 
 const Login = () => {
+  const store = useLayoutStore()
   return (
-    <div className="login">
+    <div className="login" onClick={() => (store.loginPanel = true)}>
       <Link to="/#">Login</Link>
     </div>
   )
