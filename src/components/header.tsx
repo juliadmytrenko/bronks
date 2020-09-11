@@ -1,5 +1,6 @@
 import { Link, navigate } from "gatsby"
 import React, { useContext } from "react"
+import { useObserver } from "mobx-react"
 import { useLayoutStore } from "./../store/layoutStore"
 
 interface HeaderProps {
@@ -8,28 +9,29 @@ interface HeaderProps {
 }
 
 const Header = ({ children, siteTitle }: HeaderProps) => {
-  return (
+  const store = useLayoutStore()
+  return useObserver(() => (
     <header>
       <div className="children">
         {children}
         <div className="flex">
           <h1>
-            <Link
-              to="/"
-              style={{
-                color: `white`,
-                textDecoration: `none`,
-              }}
-            >
-              {siteTitle}
-            </Link>
+            <Link to="/">{siteTitle}</Link>
           </h1>
-          <Register></Register>
-          <Login></Login>
+          <div className="profile">
+            {store.isLoggedIn ? (
+              <>PROFILEPIC</>
+            ) : (
+              <>
+                <Register></Register>
+                <Login></Login>
+              </>
+            )}
+          </div>
         </div>
       </div>
     </header>
-  )
+  ))
 }
 
 export default Header
@@ -54,7 +56,7 @@ const Login = () => {
       className="login"
       onClick={() => (store.displayPanelForLoggingIn = true)}
     >
-      <Link to="/#">Login</Link>
+      <Link to="#">Login</Link>
     </div>
   )
 }

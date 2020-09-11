@@ -63,7 +63,7 @@ const Registration = () => {
     <Overlay>
       <div className="panelForRegistration">
         <button
-          className="close"
+          className="closePanel"
           onClick={() => (store.displayPanelForRegistration = false)}
         >
           ✖

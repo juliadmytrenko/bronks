@@ -12,12 +12,56 @@
 // END OF FUNCTIONS
 
 $main-color: rgb(251, 204, 10);
+$dark-blue: rgb(3, 0, 86);
+$focus-blue: rgb(0, 249, 255);
+
+$hipnotic: repeating-radial-gradient(
+  black,
+  black 0.5rem,
+  white 0.5rem,
+  white 1rem
+);
 
 // sizes
 $main-width: 960px;
 
 body {
-  background-color: rgb(251, 204, 10);
+  // filter: hue-rotate(90deg);
+  // min-height: 100vh;
+  min-height: 100vh;
+  // background-color: black;
+  // background: url("./../images/wood.jpg");
+  background-color: black;
+  background-color: #eee;
+  background-image: linear-gradient(
+      45deg,
+      black 25%,
+      transparent 25%,
+      transparent 75%,
+      black 75%,
+      black
+    ),
+    linear-gradient(
+      -45deg,
+      black 25%,
+      transparent 25%,
+      transparent 75%,
+      black 75%,
+      black
+    );
+  background-size: 60px 60px;
+  // background: rgba(124, 66, 4, 1);
+  // background: linear-gradient(
+  //   to top,
+  //   rgba(124, 66, 4, 1) 0%,
+  //   rgba(253, 249, 18, 1) 10%,
+  //   rgba(253, 249, 18, 1) 70%,
+  //   rgba(205, 118, 4, 1) 92%,
+  //   rgba(255, 255, 255, 1) 95%,
+  //   rgba(255, 255, 255, 1) 100%,
+  //   // white 100%
+  // );
+  // background-repeat: no-repeat;
 }
 
 // general styles for forms
@@ -32,8 +76,8 @@ input {
   outline: none;
   padding: 0.2rem 0.5rem;
   &:focus {
-    box-shadow: -1px -1px 0pt 2pt rgb(0, 249, 255);
-    border: 2px outset $main-color;
+    box-shadow: 0px 0px 0pt 1px rgb(0, 249, 255);
+    border: 2px outset $focus-blue;
   }
 }
 
@@ -43,41 +87,99 @@ button {
   outline: none;
   padding: 0.5rem;
   &:focus {
-    border: 2px outset $main-color;
+    border: 2px outset $focus-blue;
   }
 }
 
 /*#endregion*/
 //
 
-header,
-footer {
-  background-color: rgb(251, 204, 10);
+header {
+  background: linear-gradient(
+    to top,
+    rgba(255, 255, 255, 0.1) 0%,
+    rgba(255, 255, 255, 0.9) 20%,
+    white 100%
+  );
 }
 
 .layout {
+  // background-color: rgb(251, 204, 10);
+  // background: rgba(124, 66, 4, 1);
+  // background: linear-gradient(
+  //   to top,
+  //   rgba(124, 66, 4, 1) 0%,
+  //   rgba(253, 249, 18, 1) 10%,
+  //   rgba(253, 249, 18, 1) 45%,
+  //   rgba(205, 118, 4, 1) 92%,
+  //   rgba(255, 255, 255, 1) 95%,
+  //   rgba(255, 255, 255, 1) 100%,
+  //   // white 100%
+  // );
+  // background-repeat: no-repeat;
+  //
   position: relative;
   display: grid;
   // grid-template-rows: 1fr auto;
   grid-template-rows: 1fr auto;
   grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
-  header {
+  // header {
+  //   grid-row-start: 1;
+  //   grid-row-end: 2;
+  //   grid-column-start: 1;
+  //   grid-column-end: -1;
+  // }
+  // main {
+  //   grid-row-start: 2;
+  //   grid-row-end: 3;
+  //   grid-column-start: 1;
+  //   grid-column-end: -1;
+  // }
+  .beer-background {
     grid-row-start: 1;
-    grid-row-end: 2;
-    grid-column-start: 1;
-    grid-column-end: -1;
-  }
-  main {
-    grid-row-start: 2;
     grid-row-end: 3;
     grid-column-start: 1;
     grid-column-end: -1;
+    display: grid;
+    grid-template-rows: 1fr auto;
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    header {
+      grid-row-start: 1;
+      grid-row-end: 2;
+      grid-column-start: 1;
+      grid-column-end: -1;
+    }
+    main {
+      min-height: 80vh;
+      grid-row-start: 2;
+      grid-row-end: 3;
+      grid-column-start: 1;
+      grid-column-end: -1;
+    }
   }
   footer {
     grid-row-start: 3;
     grid-row-end: 4;
     grid-column-start: 1;
     grid-column-end: -1;
+  }
+  .beer-background {
+    background-repeat: no-repeat;
+    background: linear-gradient(
+        to top,
+        rgba(124, 66, 4, 1) 0%,
+        rgba(253, 249, 18, 1) 10%,
+        rgba(253, 249, 18, 1) 45%,
+        rgba(205, 118, 4, 1) 92%,
+        rgba(255, 255, 255, 1) 95%,
+        rgba(255, 255, 255, 1) 100%,
+        // white 100%
+      ),
+      radial-gradient(
+        ellipse at top,
+        rgba(253, 249, 18, 0.1) 30%,
+        rgba(205, 118, 4, 1) 100%
+      );
   }
 }
 
@@ -96,6 +198,10 @@ header {
     display: "inline";
     margin: 0;
     text-align: left;
+    a {
+      // color: black;
+      text-decoration: none;
+    }
   }
 
   .register {
@@ -114,9 +220,17 @@ header {
     }
   }
 }
-
+// // rgba(253, 249, 18, 1) 85%,rgb(250, 203, 1) 100%
 main {
-  background-color: white;
+  // background-color: white;
+  // height: 1000px;
+
+  // background: radial-gradient(
+  //   circle,
+  //   rgba(253, 249, 18, 1) 60%,
+  //   rgb(250, 203, 1) 100%
+  // );
+
   padding-top: 1.45rem;
   padding-bottom: 1.45rem;
   position: relative;
@@ -128,6 +242,8 @@ main {
 }
 
 footer {
+  color: red;
+  // background: url("./../images/wood.jpg");
   .children {
     margin: 0 auto;
     max-width: $main-width;
@@ -153,32 +269,79 @@ footer {
   grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
   gap: 1rem;
 
-  div {
+  .beer {
     border: 2px solid black;
     border-radius: 0.4rem;
     width: 100%;
     height: 100%;
-    background-color: #ffc300;
+    padding: 0.5rem;
+    background-color: #eee;
+    background-image: linear-gradient(
+        45deg,
+        black 25%,
+        transparent 25%,
+        transparent 75%,
+        black 75%,
+        black
+      ),
+      linear-gradient(
+        -45deg,
+        black 25%,
+        transparent 25%,
+        transparent 75%,
+        black 75%,
+        black
+      );
+    background-size: 60px 60px;
+
+    > div {
+      width: 100%;
+      height: 100%;
+      background-color: black;
+    }
   }
 }
 
-// form styles
+// general styles for popup panels
+button.closePanel {
+  margin: 0;
+  position: absolute;
+  top: -0.5rem;
+  left: -0.5rem;
+  width: 1.5rem;
+  height: 1.5rem;
+  background: white;
+  padding: 0.6rem;
+  // outline: 0.1rem solid rgb(0, 249, 255);
+  border-radius: 2rem;
+  box-shadow: 0px 0px 0pt 2pt rgb(0, 249, 255);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  &:hover {
+    cursor: pointer;
+  }
+}
+
+// END
 
 .panelForRegistration,
 .panelForLoggingIn {
   position: relative;
   margin: 0 auto;
-  background: lightseagreen;
+  background: $dark-blue;
   width: 300px;
   margin-top: 2rem;
   max-width: 90vw;
+  border: 0.2rem outline rgb(0, 249, 255);
+  background: $hipnotic;
+  background-size: 6rem 6rem;
+  // border-radius: 0.4rem;
 
   h4 {
     margin: 0 0 0.5rem 0;
     color: white;
   }
-  border: 0.2rem solid rgb(0, 249, 255);
-  border-radius: 0.4rem;
 
   form {
     display: flex;
@@ -209,26 +372,6 @@ footer {
   background: black(0.8);
 }
 
-.close {
-  margin: 0;
-  position: absolute;
-  top: -0.5rem;
-  left: -0.5rem;
-  width: 1.5rem;
-  height: 1.5rem;
-  background: white;
-  padding: 0.6rem;
-  // outline: 0.1rem solid rgb(0, 249, 255);
-  border-radius: 2rem;
-  box-shadow: 0px 0px 0pt 2pt rgb(0, 249, 255);
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  &:hover {
-    cursor: pointer;
-  }
-}
-
 .message {
   border: 0.2rem solid rgb(5, 1, 2);
   border-radius: 0.4rem;
@@ -257,15 +400,21 @@ footer {
   z-index: 1;
   display: inline-block;
 
-  .X {
+  button.close {
     margin: 0;
     margin-left: 1rem;
     padding: 0;
     padding: 0 0.3rem;
-    // border: 1px solid red;
+    border-color: rgb(165, 0, 0);
+    background-color: rgb(255, 0, 98);
+    color: black;
     &:hover {
       cursor: pointer;
     }
+    // &:focus {
+    //   border: 2px outset rgb(53, 6, 16); //zmienić kolory
+    //   background-color: rgb(104, 16, 35);
+    // }
   }
 }
 
@@ -274,8 +423,8 @@ footer {
   background: rgb(33, 231, 6);
   color: white;
 
-  .X {
-    border-color: rgb(9, 255, 0);
+  button.close {
+    // border-color: rgb(9, 255, 0);
   }
 }
 
@@ -284,8 +433,8 @@ footer {
   background: rgb(114, 11, 28);
   color: white;
 
-  .X {
-    border-color: rgb(255, 0, 98);
+  button.close {
+    // border-color: rgb(255, 0, 98);
   }
 }
 
@@ -294,9 +443,15 @@ footer {
   cursor: pointer;
 }
 
-.layout {
-  main {
-    .children {
-    }
-  }
+.repeating-radial {
+  background: repeating-radial-gradient(
+    black,
+    black 5px,
+    white 5px,
+    white 10px
+  );
+}
+
+.profile {
+  display: flex;
 }

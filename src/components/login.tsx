@@ -54,6 +54,7 @@ const Login = () => {
     const { token } = data.login
     saveUserData(token)
     // navigate(`/`)
+    store.isLoggedIn = true
     store.displayPanelForLoggingIn = false
   }
 
@@ -61,7 +62,7 @@ const Login = () => {
     <Overlay>
       <div className="panelForLoggingIn">
         <button
-          className="close"
+          className="closePanel"
           onClick={() => (store.displayPanelForLoggingIn = false)}
         >
           ✖
@@ -70,11 +71,7 @@ const Login = () => {
           <h4>Please enter your credentials</h4>
           <div>
             <label>
-              {error && (
-                <Message error>
-                  User with this email already exists. Please check your email.
-                </Message>
-              )}
+              {error && <Message error>Bad email or password.</Message>}
               <input
                 type="email"
                 name="user_email"

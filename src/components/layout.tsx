@@ -13,13 +13,13 @@ import "./../styles/styles.scss"
 import { useObserver } from "mobx-react"
 import Header from "./header"
 import Footer from "./footer"
-import Registration from "./registration"
-import Login from "./login"
+
 import { useState } from "react"
 import Overlay from "./overlay"
 import Message from "./message"
 import Snackbar from "./snackbar"
 import LayoutStoreProvider, { useLayoutStore } from "./../store/layoutStore"
+import Main from "./main"
 // import { useObserver } from 'mobx-react-lite';
 
 interface LayoutProps {
@@ -41,22 +41,21 @@ const Layout = ({ children }: LayoutProps) => {
 
   return useObserver(() => {
     return (
-      <div className="layout">
-        <Header siteTitle={data.site.siteMetadata.title}>
-          {store.displayRegisteredSuccesfullyMessage && (
-            <Snackbar success>
-              Please check your email and click the verification link.
-            </Snackbar>
-          )}
-        </Header>
-        <main>
-          {store.displayPanelForRegistration && <Registration />}
-          {store.displayPanelForLoggingIn && <Login />}
-
-          <div className="children">{children}</div>
-        </main>
-        <Footer />
-      </div>
+      <LayoutStoreProvider>
+        <div className="layout">
+          <div className="beer-background">
+            <Header siteTitle={data.site.siteMetadata.title}>
+              {store.displayRegisteredSuccesfullyMessage && (
+                <Snackbar success>
+                  Please check your email and click the verification link.
+                </Snackbar>
+              )}
+            </Header>
+            <Main>{children}</Main>
+          </div>
+          <Footer />
+        </div>
+      </LayoutStoreProvider>
     )
   })
 }

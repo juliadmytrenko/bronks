@@ -18,7 +18,7 @@ const Snackbar = ({ className, children, success, error }: snackbarProps) => {
     >
       <span>{children}</span>
       <button
-        className="X"
+        className="close"
         onClick={() => (store.displayRegisteredSuccesfullyMessage = false)}
       >
         ✖
