@@ -2,10 +2,10 @@ import React, { createContext } from "react"
 import { useLocalStore, useObserver } from "mobx-react"
 
 const initValues = {
-  registrationPanel: false,
-  registeredSuccesfullyMessage: false,
-  loginPanel: false,
-  loggedIn: false,
+  displayPanelForRegistration: false,
+  displayRegisteredSuccesfullyMessage: false,
+  displayPanelForLoggingIn: false,
+  isLoggedIn: false,
 }
 
 export const layoutStoreContext = createContext(initValues)
@@ -16,10 +16,10 @@ interface LayoutStoreProviderProps {
 
 const LayoutStoreProvider = ({ children }: LayoutStoreProviderProps) => {
   const store = useLocalStore(() => ({
-    registrationPanel: false,
-    registeredSuccesfullyMessage: false,
-    loginPanel: false,
-    loggedIn: false,
+    displayPanelForRegistration: false,
+    displayRegisteredSuccesfullyMessage: false,
+    displayPanelForLoggingIn: false,
+    isLoggedIn: false,
   }))
   return (
     <layoutStoreContext.Provider value={store}>

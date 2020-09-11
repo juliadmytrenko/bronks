@@ -43,21 +43,17 @@ const Layout = ({ children }: LayoutProps) => {
     return (
       <div className="layout">
         <Header siteTitle={data.site.siteMetadata.title}>
-          {store.registeredSuccesfullyMessage && (
+          {store.displayRegisteredSuccesfullyMessage && (
             <Snackbar success>
-              <span>
-                Please check your email and click the verification link.
-              </span>
+              Please check your email and click the verification link.
             </Snackbar>
           )}
         </Header>
         <main>
-          {store.registrationPanel && <Registration />}
-          {store.loginPanel && <Login />}
+          {store.displayPanelForRegistration && <Registration />}
+          {store.displayPanelForLoggingIn && <Login />}
 
-          <div className="width960 smallerPadding main__content">
-            {children}
-          </div>
+          <div className="children">{children}</div>
         </main>
         <Footer />
       </div>

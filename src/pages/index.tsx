@@ -27,10 +27,6 @@ const client = new ApolloClient({
 const IndexPage = () => (
   <LayoutStoreProvider>
     <Layout>
-      {/* testing components */}
-      <CreateLink></CreateLink>
-      <LinkList></LinkList>
-      {/* end of testing */}
       <SEO title="Home" />
       <h1>Hi people</h1>
       <p>Welcome to your new Gatsby site.</p>

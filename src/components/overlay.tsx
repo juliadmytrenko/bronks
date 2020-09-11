@@ -1,8 +1,6 @@
 import React, { useContext } from "react"
 import { useLayoutStore } from "./../store/layoutStore"
 
-///
-
 interface OverlayProps {
   children: React.ReactNode
 }

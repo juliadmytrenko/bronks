@@ -7,7 +7,7 @@ import { useLayoutStore } from "./../store/layoutStore"
 import Overlay from "./overlay"
 
 const LOGIN_MUTATION = gql`
-  mutation RegistrationMutation($email: String!, $password: String!) {
+  mutation LoginMutation($email: String!, $password: String!) {
     login(email: $email, password: $password) {
       token
       user {
@@ -35,33 +35,35 @@ const Login = () => {
     if (email && password) {
       try {
         const { data } = await login()
-        // confirm(data)
+        confirm(data)
       } catch (error) {
         setError(true)
       }
     }
   }
 
-  //   const saveUserData = (token: string) => {
-  //     localStorage.setItem(AUTH_TOKEN, token)
-  //   }
+  const saveUserData = (token: string) => {
+    localStorage.setItem(AUTH_TOKEN, token)
+  }
   type Login = { token: string }
   interface Data {
     login: Login
   }
 
-  //   const confirm = async (data: Data) => {
-  //     const { token } = data.signup
-  //     saveUserData(token)
-  //     // navigate(`/`)
-  //     store.registrationPanel = false
-  //     store.registeredSuccesfullyMessage = true
-  //   }
+  const confirm = async (data: Data) => {
+    const { token } = data.login
+    saveUserData(token)
+    // navigate(`/`)
+    store.displayPanelForLoggingIn = false
+  }
 
   return (
     <Overlay>
-      <div className="registration">
-        <button className="close" onClick={() => (store.loginPanel = false)}>
+      <div className="panelForLoggingIn">
+        <button
+          className="close"
+          onClick={() => (store.displayPanelForLoggingIn = false)}
+        >
           ✖
         </button>
         <form onSubmit={event => handleSubmit(event)}>

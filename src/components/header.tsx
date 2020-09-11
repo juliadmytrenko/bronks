@@ -10,10 +10,10 @@ interface HeaderProps {
 const Header = ({ children, siteTitle }: HeaderProps) => {
   return (
     <header>
-      <div className="width960">
+      <div className="children">
         {children}
         <div className="flex">
-          <h1 style={{ margin: 0, display: "inline" }}>
+          <h1>
             <Link
               to="/"
               style={{
@@ -38,7 +38,10 @@ export default Header
 const Register = () => {
   const store = useLayoutStore()
   return (
-    <div className="register" onClick={() => (store.registrationPanel = true)}>
+    <div
+      className="register"
+      onClick={() => (store.displayPanelForRegistration = true)}
+    >
       <Link to="#">Register</Link>
     </div>
   )
@@ -47,7 +50,10 @@ const Register = () => {
 const Login = () => {
   const store = useLayoutStore()
   return (
-    <div className="login" onClick={() => (store.loginPanel = true)}>
+    <div
+      className="login"
+      onClick={() => (store.displayPanelForLoggingIn = true)}
+    >
       <Link to="/#">Login</Link>
     </div>
   )

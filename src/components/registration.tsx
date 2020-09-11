@@ -55,16 +55,16 @@ const Registration = () => {
     const { token } = data.signup
     saveUserData(token)
     // navigate(`/`)
-    store.registrationPanel = false
-    store.registeredSuccesfullyMessage = true
+    store.displayPanelForRegistration = false
+    store.displayRegisteredSuccesfullyMessage = true
   }
 
   return (
     <Overlay>
-      <div className="registration">
+      <div className="panelForRegistration">
         <button
           className="close"
-          onClick={() => (store.registrationPanel = false)}
+          onClick={() => (store.displayPanelForRegistration = false)}
         >
           ✖
         </button>

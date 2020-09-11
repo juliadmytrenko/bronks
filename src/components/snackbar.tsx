@@ -16,10 +16,10 @@ const Snackbar = ({ className, children, success, error }: snackbarProps) => {
         "snackbar " + (success ? "success " : error ? "error " : "") + className
       }
     >
-      {children}
+      <span>{children}</span>
       <button
         className="X"
-        onClick={() => (store.registeredSuccesfullyMessage = false)}
+        onClick={() => (store.displayRegisteredSuccesfullyMessage = false)}
       >
         ✖
       </button>
