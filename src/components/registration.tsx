@@ -5,6 +5,7 @@ import { navigate } from "@reach/router"
 import Message from "./message"
 import { useLayoutStore } from "./../store/layoutStore"
 import Overlay from "./overlay"
+import { Button, Checkbox, Form } from "semantic-ui-react"
 
 const REGISTRATION_MUTATION = gql`
   mutation RegistrationMutation($email: String!, $password: String!) {
@@ -61,7 +62,7 @@ const Registration = () => {
 
   return (
     <Overlay>
-      <div className="panelForRegistration">
+      {/* <div className="panelForRegistration">
         <button
           className="closePanel"
           onClick={() => (store.displayPanelForRegistration = false)}
@@ -106,6 +107,36 @@ const Registration = () => {
           </div>
           <button type="submit">submit</button>
         </form>
+      </div> */}
+      <div className="panelForRegistration">
+        <Form>
+          <Form.Field>
+            <label>Email</label>
+            <input type="email" placeholder="Email" />
+          </Form.Field>
+          <Form.Field>
+            <label>Password</label>
+            <Form.Input
+              icon="lock"
+              iconPosition="left"
+              type="password"
+              placeholder="Password"
+            />
+          </Form.Field>
+          <Form.Field>
+            <label>Verify password</label>
+            <Form.Input
+              icon="lock"
+              iconPosition="left"
+              type="password"
+              placeholder="Verify password"
+            />
+          </Form.Field>
+          <Form.Field>
+            <Checkbox label="I agree to the Terms and Conditions" />
+          </Form.Field>
+          <Button type="submit">Submit</Button>
+        </Form>
       </div>
     </Overlay>
   )
