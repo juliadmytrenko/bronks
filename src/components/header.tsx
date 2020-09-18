@@ -2,6 +2,7 @@ import { Link, navigate } from "gatsby"
 import React, { useContext } from "react"
 import { useObserver } from "mobx-react"
 import { useLayoutStore } from "./../store/layoutStore"
+import { Button, Grid } from "semantic-ui-react"
 
 interface HeaderProps {
   children: React.ReactNode
@@ -19,14 +20,20 @@ const Header = ({ children, siteTitle }: HeaderProps) => {
             <Link to="/">{siteTitle}</Link>
           </h1>
           <div className="profile">
-            {store.isLoggedIn ? (
-              <>PROFILEPIC</>
-            ) : (
-              <>
-                <Register></Register>
-                <Login></Login>
-              </>
-            )}
+            <Grid columns={2} verticalAlign="middle">
+              {store.isLoggedIn ? (
+                <>PROFILEPIC</>
+              ) : (
+                <>
+                  <Grid.Column textAlign="right">
+                    <Register></Register>
+                  </Grid.Column>
+                  <Grid.Column>
+                    <Login></Login>
+                  </Grid.Column>
+                </>
+              )}
+            </Grid>
           </div>
         </div>
       </div>
@@ -52,11 +59,12 @@ const Register = () => {
 const Login = () => {
   const store = useLayoutStore()
   return (
-    <div
+    <Button
+      color="purple"
       className="login"
       onClick={() => (store.displayPanelForLoggingIn = true)}
     >
       <Link to="#">Login</Link>
-    </div>
+    </Button>
   )
 }
