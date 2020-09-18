@@ -263,19 +263,9 @@ footer {
 // general styles for popup panels
 button.closePanel {
   z-index: 1;
-  // margin: 0;
   position: absolute;
-  top: -0.5rem;
-  left: -0.5rem;
-  // width: 3rem;
-  // height: 2rem;
-  // padding: 0.6rem;
-  // display: flex;
-  // justify-content: center;
-  // align-items: center;
-  // &:hover {
-  //   cursor: pointer;
-  // }
+  top: -1rem;
+  left: -1rem;
 }
 
 // END
