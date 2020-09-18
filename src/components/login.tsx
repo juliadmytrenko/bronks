@@ -5,6 +5,18 @@ import { navigate } from "@reach/router"
 import Message from "./message"
 import { useLayoutStore } from "./../store/layoutStore"
 import Overlay from "./overlay"
+import FormTemplate from "./formTemplate.tsx"
+import {
+  Button,
+  Checkbox,
+  Form,
+  Input,
+  Field,
+  Label,
+  Segment,
+  Grid,
+  Header,
+} from "semantic-ui-react"
 
 const LOGIN_MUTATION = gql`
   mutation LoginMutation($email: String!, $password: String!) {
@@ -29,6 +41,10 @@ const Login = () => {
       password: password,
     },
   })
+
+  const handleClose = () => {
+    store.displayPanelForLoggingIn = false
+  }
 
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault()
@@ -60,39 +76,31 @@ const Login = () => {
 
   return (
     <Overlay>
-      <div className="panelForLoggingIn">
-        <button
-          className="closePanel"
-          onClick={() => (store.displayPanelForLoggingIn = false)}
-        >
-          ✖
-        </button>
-        <form onSubmit={event => handleSubmit(event)}>
-          <h4>Please enter your credentials</h4>
-          <div>
-            <label>
-              {error && <Message error>Bad email or password.</Message>}
-              <input
-                type="email"
-                name="user_email"
-                placeholder="e-mail"
-                value={email}
-                onChange={e => setEmail(e.target.value)}
-              ></input>
-            </label>
-            <label>
-              <input
-                type="password"
-                name="user_password"
-                placeholder="password"
-                value={password}
-                onChange={e => setPassword(e.target.value)}
-              ></input>
-            </label>
-          </div>
-          <button type="submit">submit</button>
-        </form>
-      </div>
+      <FormTemplate onSubmit={handleSubmit} onClose={handleClose}>
+        <Header color="blue" size="large">
+          Log in
+        </Header>
+        <Form.Input
+          type="email"
+          placeholder="email"
+          value={email}
+          onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
+            setEmail(e.target.value)
+          }
+          fluid
+        />
+        <Form.Input
+          type="password"
+          placeholder="password"
+          value={password}
+          onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
+            setPassword(e.target.value)
+          }
+          icon="lock"
+          iconPosition="right"
+          fluid
+        />
+      </FormTemplate>
     </Overlay>
   )
 }

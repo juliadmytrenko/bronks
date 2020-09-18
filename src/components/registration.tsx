@@ -14,7 +14,9 @@ import {
   Label,
   Segment,
   Grid,
+  Header,
 } from "semantic-ui-react"
+import FormTemplate from "./formTemplate.tsx"
 
 const REGISTRATION_MUTATION = gql`
   mutation RegistrationMutation($email: String!, $password: String!) {
@@ -40,6 +42,10 @@ const Registration = () => {
       password: password,
     },
   })
+
+  const handleClose = () => {
+    store.displayPanelForRegistration = false
+  }
 
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault()
@@ -71,66 +77,46 @@ const Registration = () => {
 
   return (
     <Overlay>
-      <div className="panel panelForRegistration">
-        <Button
-          type="text"
-          color="red"
-          className="closePanel"
-          onClick={() => (store.displayPanelForRegistration = false)}
-        >
-          <span>✖</span> Close
-        </Button>
-        <Segment>
-          <Form>
-            <Grid classname="grid">
-              <Grid.Column>
-                <Grid.Row>
-                  <Form.Input
-                    type="email"
-                    placeholder="Email"
-                    onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
-                      setEmail(e.target.value)
-                    }
-                    fluid
-                  />
-                </Grid.Row>
-                <Grid.Row>
-                  <Form.Input
-                    type="password"
-                    placeholder="Password"
-                    onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
-                      setPassword(e.target.value)
-                    }
-                    icon="lock"
-                    iconPosition="right"
-                    fluid
-                  />
-                </Grid.Row>
-                <Grid.Row>
-                  <Form.Input
-                    type="password"
-                    placeholder="Verify password"
-                    onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
-                      setPasswordVerification(e.target.value)
-                    }
-                    icon="lock"
-                    iconPosition="right"
-                    fluid
-                  />
-                </Grid.Row>
-                <Grid.Row>
-                  <Checkbox label="I agree to the Terms and Conditions" />
-                </Grid.Row>
-                <Grid.Row>
-                  <Button color="primary" type="submit">
-                    Submit
-                  </Button>
-                </Grid.Row>
-              </Grid.Column>
-            </Grid>
-          </Form>
-        </Segment>
-      </div>
+      <FormTemplate onSubmit={handleSubmit} onClose={handleClose}>
+        <Header color="blue" size="large">
+          Register
+        </Header>
+        <Form.Input
+          type="email"
+          placeholder="email"
+          value={email}
+          onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
+            setEmail(e.target.value)
+          }
+          fluid
+        />
+
+        <Form.Input
+          type="password"
+          placeholder="password"
+          value={password}
+          onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
+            setPassword(e.target.value)
+          }
+          icon="lock"
+          iconPosition="right"
+          fluid
+        />
+
+        <Form.Input
+          type="password"
+          placeholder="verify password"
+          value={passwordVerification}
+          onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
+            setPasswordVerification(e.target.value)
+          }
+          icon="lock"
+          iconPosition="right"
+          fluid
+        />
+
+        <Checkbox label="I agree to the Terms and Conditions" />
+      </FormTemplate>
     </Overlay>
   )
 }
