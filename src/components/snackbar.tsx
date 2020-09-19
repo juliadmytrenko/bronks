@@ -1,28 +1,35 @@
 import React, { useContext } from "react"
 import { useLayoutStore } from "./../store/layoutStore"
+import { Alert } from "react-bootstrap"
+
+type variant =
+  | "primary"
+  | "secondary"
+  | "success"
+  | "danger"
+  | "warning"
+  | "info"
+  | "light"
+  | "dark"
 
 interface snackbarProps {
   className?: string
   children: React.ReactNode
-  success?: boolean
-  error?: boolean
+  variant?: variant
 }
 
-const Snackbar = ({ className, children, success, error }: snackbarProps) => {
+const Snackbar = ({ className, children, variant }: snackbarProps) => {
   const store = useLayoutStore()
   return (
-    <div
-      className={
-        "snackbar " + (success ? "success " : error ? "error " : "") + className
-      }
-    >
-      <span>{children}</span>
-      <button
-        className="close"
-        onClick={() => (store.displayRegisteredSuccesfullyMessage = false)}
+    <div className={"snackbar " + className}>
+      <Alert
+        className="snackbar"
+        variant={variant}
+        onClose={() => (store.displayRegisteredSuccesfullyMessage = false)}
+        dismissible
       >
-        ✖
-      </button>
+        {children}
+      </Alert>
     </div>
   )
 }

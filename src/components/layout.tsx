@@ -21,6 +21,7 @@ import Snackbar from "./snackbar"
 import LayoutStoreProvider, { useLayoutStore } from "./../store/layoutStore"
 import Main from "./main"
 // import { useObserver } from 'mobx-react-lite';
+import { Button } from "react-bootstrap"
 
 interface LayoutProps {
   children: React.ReactNode
@@ -46,7 +47,7 @@ const Layout = ({ children }: LayoutProps) => {
           <div className="background">
             <Header siteTitle={data.site.siteMetadata.title}>
               {store.displayRegisteredSuccesfullyMessage && (
-                <Snackbar success>
+                <Snackbar variant="success">
                   Please check your email and click the verification link.
                 </Snackbar>
               )}
