@@ -10,6 +10,7 @@ import PropTypes from "prop-types"
 import { useStaticQuery, graphql } from "gatsby"
 import "./layout.css"
 import "./../styles/styles.scss"
+import "./../styles/theme.scss"
 import { useObserver } from "mobx-react"
 import Header from "./header"
 import Footer from "./footer"
@@ -20,9 +21,6 @@ import Snackbar from "./snackbar"
 import LayoutStoreProvider, { useLayoutStore } from "./../store/layoutStore"
 import Main from "./main"
 // import { useObserver } from 'mobx-react-lite';
-import { Button, Checkbox, Form } from "semantic-ui-react"
-
-import "semantic-ui-forest-themes/semantic.lumen.min.css"
 
 interface LayoutProps {
   children: React.ReactNode

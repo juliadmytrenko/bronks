@@ -5,16 +5,7 @@ import { navigate } from "@reach/router"
 import Message from "./message"
 import { useLayoutStore } from "./../store/layoutStore"
 import Overlay from "./overlay"
-import {
-  Button,
-  Checkbox,
-  Form,
-  Input,
-  Field,
-  Label,
-  Segment,
-  Grid,
-} from "semantic-ui-react"
+import { Button, Container, Row, Col, Form } from "react-bootstrap"
 
 interface FormTemplateProps {
   onSubmit: Function
@@ -26,23 +17,28 @@ interface FormTemplateProps {
 const FormTemplate = ({ onSubmit, onClose, children }: FormTemplateProps) => {
   return (
     <div className="panel">
-      <Button type="text" color="red" className="closePanel" onClick={onClose}>
-        <span>✖</span> Close
+      <Button
+        type="text"
+        color="red"
+        className="closePanel"
+        onClick={onClose}
+        variant="danger"
+      >
+        ✖ Close
       </Button>
-      <Segment>
-        <Form onSubmit={onSubmit}>
-          <Grid classname="grid">
-            <Grid.Column>
-              {children && children.map(child => <Grid.Row>{child}</Grid.Row>)}
-              <Grid.Row>
-                <Button color="primary" type="submit">
-                  Submit
-                </Button>
-              </Grid.Row>
-            </Grid.Column>
-          </Grid>
-        </Form>
-      </Segment>
+
+      <Form onSubmit={onSubmit}>
+        <Container className="grid">
+          <Col>
+            {children && children.map((child, i) => <Row key={i}>{child}</Row>)}
+            <Row>
+              <Button color="primary" type="submit">
+                Submit
+              </Button>
+            </Row>
+          </Col>
+        </Container>
+      </Form>
     </div>
   )
 }

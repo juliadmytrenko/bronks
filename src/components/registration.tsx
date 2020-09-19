@@ -5,17 +5,7 @@ import { navigate } from "@reach/router"
 import Message from "./message"
 import { useLayoutStore } from "./../store/layoutStore"
 import Overlay from "./overlay"
-import {
-  Button,
-  Checkbox,
-  Form,
-  Input,
-  Field,
-  Label,
-  Segment,
-  Grid,
-  Header,
-} from "semantic-ui-react"
+import { Form } from "react-bootstrap"
 import FormTemplate from "./formTemplate.tsx"
 
 const REGISTRATION_MUTATION = gql`
@@ -78,44 +68,38 @@ const Registration = () => {
   return (
     <Overlay>
       <FormTemplate onSubmit={handleSubmit} onClose={handleClose}>
-        <Header color="blue" size="large">
-          Register
-        </Header>
-        <Form.Input
+        <h4>Register</h4>
+        <Form.Control
           type="email"
           placeholder="email"
           value={email}
           onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
             setEmail(e.target.value)
           }
-          fluid
         />
 
-        <Form.Input
+        <Form.Control
           type="password"
           placeholder="password"
           value={password}
           onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
             setPassword(e.target.value)
           }
-          icon="lock"
-          iconPosition="right"
-          fluid
         />
 
-        <Form.Input
+        <Form.Control
           type="password"
           placeholder="verify password"
           value={passwordVerification}
           onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
             setPasswordVerification(e.target.value)
           }
-          icon="lock"
-          iconPosition="right"
-          fluid
         />
 
-        <Checkbox label="I agree to the Terms and Conditions" />
+        <Form.Check
+          type="checkbox"
+          label="I agree to the Terms and Conditions"
+        />
       </FormTemplate>
     </Overlay>
   )

@@ -2,8 +2,7 @@ import { Link, navigate } from "gatsby"
 import React, { useContext } from "react"
 import { useObserver } from "mobx-react"
 import { useLayoutStore } from "./../store/layoutStore"
-import { Button, Grid } from "semantic-ui-react"
-
+import { Button, Container, Col } from "react-bootstrap"
 interface HeaderProps {
   children: React.ReactNode
   siteTitle: string
@@ -20,20 +19,20 @@ const Header = ({ children, siteTitle }: HeaderProps) => {
             <Link to="/">{siteTitle}</Link>
           </h1>
           <div className="profile">
-            <Grid columns={2} verticalAlign="middle">
+            <Container>
               {store.isLoggedIn ? (
                 <>PROFILEPIC</>
               ) : (
                 <>
-                  <Grid.Column textAlign="right">
+                  <Col>
                     <Register></Register>
-                  </Grid.Column>
-                  <Grid.Column>
+                  </Col>
+                  <Col>
                     <Login></Login>
-                  </Grid.Column>
+                  </Col>
                 </>
               )}
-            </Grid>
+            </Container>
           </div>
         </div>
       </div>

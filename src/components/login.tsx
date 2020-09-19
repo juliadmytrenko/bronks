@@ -6,17 +6,7 @@ import Message from "./message"
 import { useLayoutStore } from "./../store/layoutStore"
 import Overlay from "./overlay"
 import FormTemplate from "./formTemplate.tsx"
-import {
-  Button,
-  Checkbox,
-  Form,
-  Input,
-  Field,
-  Label,
-  Segment,
-  Grid,
-  Header,
-} from "semantic-ui-react"
+import { Form } from "react-bootstrap"
 
 const LOGIN_MUTATION = gql`
   mutation LoginMutation($email: String!, $password: String!) {
@@ -77,29 +67,27 @@ const Login = () => {
   return (
     <Overlay>
       <FormTemplate onSubmit={handleSubmit} onClose={handleClose}>
-        <Header color="blue" size="large">
-          Log in
-        </Header>
-        <Form.Input
-          type="email"
-          placeholder="email"
-          value={email}
-          onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
-            setEmail(e.target.value)
-          }
-          fluid
-        />
-        <Form.Input
-          type="password"
-          placeholder="password"
-          value={password}
-          onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
-            setPassword(e.target.value)
-          }
-          icon="lock"
-          iconPosition="right"
-          fluid
-        />
+        <h4 color="blue">Log in</h4>
+        <Form.Group>
+          <Form.Control
+            type="email"
+            placeholder="email"
+            value={email}
+            onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
+              setEmail(e.target.value)
+            }
+          />
+        </Form.Group>
+        <Form.Group>
+          <Form.Control
+            type="password"
+            placeholder="password"
+            value={password}
+            onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
+              setPassword(e.target.value)
+            }
+          />
+        </Form.Group>
       </FormTemplate>
     </Overlay>
   )
