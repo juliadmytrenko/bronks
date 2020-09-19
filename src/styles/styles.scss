@@ -33,23 +33,23 @@ body {
   // background: url("./../images/wood.jpg");
   background-color: black;
   background-color: #eee;
-  background-image: linear-gradient(
-      45deg,
-      black 25%,
-      transparent 25%,
-      transparent 75%,
-      black 75%,
-      black
-    ),
-    linear-gradient(
-      -45deg,
-      black 25%,
-      transparent 25%,
-      transparent 75%,
-      black 75%,
-      black
-    );
-  background-size: 60px 60px;
+  // background-image: linear-gradient(
+  //     45deg,
+  //     black 25%,
+  //     transparent 25%,
+  //     transparent 75%,
+  //     black 75%,
+  //     black
+  //   ),
+  //   linear-gradient(
+  //     -45deg,
+  //     black 25%,
+  //     transparent 25%,
+  //     transparent 75%,
+  //     black 75%,
+  //     black
+  //   );
+  // background-size: 60px 60px;
   // background: rgba(124, 66, 4, 1);
   // background: linear-gradient(
   //   to top,
@@ -104,19 +104,8 @@ header {
   // grid-template-rows: 1fr auto;
   grid-template-rows: 1fr auto;
   grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
-  // header {
-  //   grid-row-start: 1;
-  //   grid-row-end: 2;
-  //   grid-column-start: 1;
-  //   grid-column-end: -1;
-  // }
-  // main {
-  //   grid-row-start: 2;
-  //   grid-row-end: 3;
-  //   grid-column-start: 1;
-  //   grid-column-end: -1;
-  // }
-  .beer-background {
+
+  .background {
     grid-row-start: 1;
     grid-row-end: 3;
     grid-column-start: 1;
@@ -144,22 +133,15 @@ header {
     grid-column-start: 1;
     grid-column-end: -1;
   }
-  .beer-background {
-    background-repeat: no-repeat;
-    background: radial-gradient(
-      circle,
-      rgba(253, 249, 18, 1) 30%,
-      rgba(205, 118, 4, 1) 100%
-    );
-  }
+  background-color: gainsboro;
+  // background-repeat: no-repeat;
+  // background: radial-gradient(
+  //   circle,
+  //   rgba(253, 249, 18, 1) 30%,
+  //   rgba(205, 118, 4, 1) 100%
+  // );
 }
-// button:active {
-//   background: #e5e5e5;
-//   -webkit-box-shadow: inset 0px 0px 5px #c1c1c1;
-//   -moz-box-shadow: inset 0px 0px 5px #c1c1c1;
-//   box-shadow: inset 0px 0px 5px #c1c1c1;
-//   outline: none;
-// }
+
 header {
   .children {
     margin: 0 auto;
@@ -196,17 +178,7 @@ header {
     }
   }
 }
-// // rgba(253, 249, 18, 1) 85%,rgb(250, 203, 1) 100%
 main {
-  // background-color: white;
-  // height: 1000px;
-
-  // background: radial-gradient(
-  //   circle,
-  //   rgba(253, 249, 18, 1) 60%,
-  //   rgb(250, 203, 1) 100%
-  // );
-
   padding-top: 1.45rem;
   padding-bottom: 1.45rem;
   position: relative;
@@ -248,14 +220,15 @@ footer {
     border-radius: 0.4rem;
     width: 100%;
     height: 100%;
-    padding: 0.5rem;
+    padding: 0.1rem;
     background-color: floralwhite;
     background-size: 60px 60px;
 
     > div {
       width: 100%;
       height: 100%;
-      // background-color: black;
+      border-radius: 0.3rem;
+      background-color: goldenrod;
     }
   }
 }

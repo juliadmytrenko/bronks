@@ -43,7 +43,7 @@ const Layout = ({ children }: LayoutProps) => {
     return (
       <LayoutStoreProvider>
         <div className="layout">
-          <div className="beer-background">
+          <div className="background">
             <Header siteTitle={data.site.siteMetadata.title}>
               {store.displayRegisteredSuccesfullyMessage && (
                 <Snackbar success>

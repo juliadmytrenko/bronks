@@ -5,7 +5,7 @@ import { navigate } from "@reach/router"
 import Message from "./message"
 import { useLayoutStore } from "./../store/layoutStore"
 import Overlay from "./overlay"
-import { Form } from "react-bootstrap"
+import { Form, Modal, Button } from "react-bootstrap"
 import FormTemplate from "./formTemplate.tsx"
 
 const REGISTRATION_MUTATION = gql`
@@ -66,42 +66,60 @@ const Registration = () => {
   }
 
   return (
-    <Overlay>
-      <FormTemplate onSubmit={handleSubmit} onClose={handleClose}>
-        <h4>Register</h4>
-        <Form.Control
-          type="email"
-          placeholder="email"
-          value={email}
-          onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
-            setEmail(e.target.value)
-          }
-        />
+    <Modal
+      show={store.displayPanelForRegistration}
+      onHide={handleClose}
+      backdrop="static"
+      keyboard={false}
+      centered
+    >
+      <Modal.Header closeButton>
+        <Modal.Title>Register</Modal.Title>
+      </Modal.Header>
+      <Modal.Body>
+        <FormTemplate onSubmit={handleSubmit}>
+          <Form.Control
+            type="email"
+            placeholder="email"
+            value={email}
+            onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
+              setEmail(e.target.value)
+            }
+          />
 
-        <Form.Control
-          type="password"
-          placeholder="password"
-          value={password}
-          onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
-            setPassword(e.target.value)
-          }
-        />
+          <Form.Control
+            type="password"
+            placeholder="password"
+            value={password}
+            onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
+              setPassword(e.target.value)
+            }
+          />
 
-        <Form.Control
-          type="password"
-          placeholder="verify password"
-          value={passwordVerification}
-          onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
-            setPasswordVerification(e.target.value)
-          }
-        />
+          <Form.Control
+            type="password"
+            placeholder="verify password"
+            value={passwordVerification}
+            onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
+              setPasswordVerification(e.target.value)
+            }
+          />
 
-        <Form.Check
-          type="checkbox"
-          label="I agree to the Terms and Conditions"
-        />
-      </FormTemplate>
-    </Overlay>
+          <Form.Check
+            type="checkbox"
+            label="I agree to the Terms and Conditions"
+          />
+        </FormTemplate>
+      </Modal.Body>
+      <Modal.Footer>
+        <Button variant="secondary" onClick={handleClose}>
+          Close
+        </Button>
+        <Button color="primary" type="submit">
+          Submit
+        </Button>
+      </Modal.Footer>
+    </Modal>
   )
 }
 

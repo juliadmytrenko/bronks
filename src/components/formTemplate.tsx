@@ -9,37 +9,24 @@ import { Button, Container, Row, Col, Form } from "react-bootstrap"
 
 interface FormTemplateProps {
   onSubmit: Function
-  onClose: Function
   children: JSX.Element[]
 }
 
 // eatch children of jsx passed to this component is a row
-const FormTemplate = ({ onSubmit, onClose, children }: FormTemplateProps) => {
+const FormTemplate = ({ onSubmit, children }: FormTemplateProps) => {
   return (
-    <div className="panel">
-      <Button
-        type="text"
-        color="red"
-        className="closePanel"
-        onClick={onClose}
-        variant="danger"
-      >
-        ✖ Close
-      </Button>
-
-      <Form onSubmit={onSubmit}>
-        <Container className="grid">
+    <Form onSubmit={onSubmit}>
+      <Container className="grid">
+        <Row>
           <Col>
-            {children && children.map((child, i) => <Row key={i}>{child}</Row>)}
-            <Row>
-              <Button color="primary" type="submit">
-                Submit
-              </Button>
-            </Row>
+            {children &&
+              children.map((child, i) => (
+                <Form.Group key={i}>{child}</Form.Group>
+              ))}
           </Col>
-        </Container>
-      </Form>
-    </div>
+        </Row>
+      </Container>
+    </Form>
   )
 }
 

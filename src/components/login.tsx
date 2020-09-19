@@ -6,7 +6,7 @@ import Message from "./message"
 import { useLayoutStore } from "./../store/layoutStore"
 import Overlay from "./overlay"
 import FormTemplate from "./formTemplate.tsx"
-import { Form } from "react-bootstrap"
+import { Form, Modal, Button } from "react-bootstrap"
 
 const LOGIN_MUTATION = gql`
   mutation LoginMutation($email: String!, $password: String!) {
@@ -65,10 +65,18 @@ const Login = () => {
   }
 
   return (
-    <Overlay>
-      <FormTemplate onSubmit={handleSubmit} onClose={handleClose}>
-        <h4 color="blue">Log in</h4>
-        <Form.Group>
+    <Modal
+      show={store.displayPanelForLoggingIn}
+      onHide={handleClose}
+      backdrop="static"
+      keyboard={false}
+      centered
+    >
+      <Modal.Header closeButton>
+        <Modal.Title>Log in</Modal.Title>
+      </Modal.Header>
+      <Modal.Body>
+        <FormTemplate onSubmit={handleSubmit}>
           <Form.Control
             type="email"
             placeholder="email"
@@ -77,8 +85,6 @@ const Login = () => {
               setEmail(e.target.value)
             }
           />
-        </Form.Group>
-        <Form.Group>
           <Form.Control
             type="password"
             placeholder="password"
@@ -87,9 +93,17 @@ const Login = () => {
               setPassword(e.target.value)
             }
           />
-        </Form.Group>
-      </FormTemplate>
-    </Overlay>
+        </FormTemplate>
+      </Modal.Body>
+      <Modal.Footer>
+        <Button variant="secondary" onClick={handleClose}>
+          Close
+        </Button>
+        <Button color="primary" type="submit">
+          Submit
+        </Button>
+      </Modal.Footer>
+    </Modal>
   )
 }
 
