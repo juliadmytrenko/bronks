@@ -327,3 +327,17 @@ button.closePanel {
     white 10px
   );
 }
+
+.tooltip-wrapper {
+  position: relative;
+}
+
+.snackbar {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+
+  .alert {
+    margin: 0;
+  }
+}

@@ -4,7 +4,7 @@ import { gql, useMutation } from "@apollo/client"
 import { navigate } from "@reach/router"
 import Message from "./message"
 import { useLayoutStore } from "../store/layoutStore"
-import Overlay from "./overlay"
+// import Overlay from "./overlay"
 import {
   Form,
   Modal,
@@ -13,11 +13,15 @@ import {
   Col,
   Container,
   Row,
+  Tooltip,
+  Overlay,
+  OverlayTrigger,
 } from "react-bootstrap"
 import FormTemplate from "./formTemplate.tsx"
 import { useForm } from "react-hook-form"
 import { yupResolver } from "@hookform/resolvers"
 import * as Yup from "yup"
+import Snackbar from "./snackbar.tsx"
 
 interface ISignUpFormInputs {
   email: string
@@ -39,14 +43,16 @@ const SIGNUP_MUTATION = gql`
 `
 
 const SignupSchema = Yup.object().shape({
-  email: Yup.string().required(),
+  email: Yup.string()
+    .email("Invalid email address.")
+    .required("No email provided."),
   password: Yup.string()
     .required("No password provided.")
     .min(8, "Password is too short - should be 8 chars minimum.")
     .matches(/[a-zA-Z]/, "Password can only contain Latin letters."),
   passwordConfirmation: Yup.string().oneOf(
     [Yup.ref("password"), null],
-    "Passwords must match"
+    "Passwords must match."
   ),
   termsAndConditionsConsent: Yup.boolean().oneOf(
     [true],
@@ -58,7 +64,13 @@ const SignUp = () => {
   const store = useLayoutStore()
   const [signup] = useMutation(SIGNUP_MUTATION)
   const [connectionError, setConnectionError] = useState(false)
-  const { register, errors, handleSubmit } = useForm<ISignUpFormInputs>({
+  const {
+    register,
+    errors,
+    handleSubmit,
+    formState: { touched },
+    clearErrors,
+  } = useForm<ISignUpFormInputs>({
     resolver: yupResolver(SignupSchema),
   })
 
@@ -103,52 +115,77 @@ const SignUp = () => {
       keyboard={false}
       centered
     >
+      {/* {connectionError && (
+        <Snackbar variant="danger">
+          [server connection error] <br /> Please try again later.
+        </Snackbar>
+      )} */}
+      {/* zrobic w MobX i dodawac snackbary ktore beda wyswietlnae  */}
       <Modal.Header closeButton>
         <Modal.Title>Register</Modal.Title>
       </Modal.Header>
-      <Form onSubmit={handleSubmit(onSubmit)}>
+      <Form onSubmit={handleSubmit(onSubmit)} noValidate>
         <Modal.Body>
           <Container className="grid">
             <Row>
-              <Col>
-                {connectionError && <p>server connection error</p>}
-                <Form.Group>
-                  <Form.Control
-                    name="email"
-                    type="email"
-                    placeholder="email"
-                    ref={register}
-                  />
-                  <p>{errors.email?.message}</p>
-                </Form.Group>
-                <Form.Group>
-                  <Form.Control
-                    name="password"
-                    type="password"
-                    placeholder="password"
-                    ref={register}
-                  />
-                  <p>{errors.password?.message}</p>
-                </Form.Group>
-                <Form.Group>
-                  <Form.Control
-                    name="passwordConfirmation"
-                    type="password"
-                    placeholder="confirm password"
-                    ref={register}
-                  />
-                  <p>{errors.passwordConfirmation?.message}</p>
-                </Form.Group>
-                <Form.Group>
-                  <Form.Check
-                    name="termsAndConditionsConsent"
-                    type="checkbox"
-                    label="I agree to the Terms and Conditions"
-                    ref={register}
-                  />
-                  <p>{errors.termsAndConditionsConsent?.message}</p>
-                </Form.Group>
-              </Col>
+              <Form.Group as={Col}>
+                <Form.Control
+                  name="email"
+                  type="email"
+                  placeholder="email"
+                  ref={register}
+                  onChange={() => clearErrors(["email"])}
+                  isInvalid={!!errors.email}
+                />
+                <Form.Control.Feedback type="invalid">
+                  {errors.email?.message}
+                </Form.Control.Feedback>
+              </Form.Group>
+            </Row>
+            <Row>
+              <Form.Group as={Col}>
+                <Form.Control
+                  name="password"
+                  type="password"
+                  placeholder="password"
+                  ref={register}
+                  onChange={() => clearErrors(["password"])}
+                  isInvalid={!!errors.password}
+                />
+                <Form.Control.Feedback type="invalid">
+                  {errors.password?.message}
+                </Form.Control.Feedback>
+              </Form.Group>
+            </Row>
+            <Row>
+              <Form.Group as={Col}>
+                <Form.Control
+                  name="passwordConfirmation"
+                  type="password"
+                  placeholder="confirm password"
+                  ref={register}
+                  onChange={() => clearErrors(["passwordConfirmation"])}
+                  isInvalid={!!errors.passwordConfirmation}
+                />
+                <Form.Control.Feedback type="invalid">
+                  {errors.passwordConfirmation?.message}
+                </Form.Control.Feedback>
+              </Form.Group>
+            </Row>
+            <Row>
+              <Form.Group as={Col}>
+                <Form.Check
+                  name="termsAndConditionsConsent"
+                  type="checkbox"
+                  label="I agree to the Terms and Conditions"
+                  ref={register}
+                  onChange={() => clearErrors(["termsAndConditionsConsent"])}
+                  isInvalid={!!errors.termsAndConditionsConsent}
+                />
+                <Form.Control.Feedback type="invalid" tooltip>
+                  {errors.termsAndConditionsConsent?.message}
+                </Form.Control.Feedback>
+              </Form.Group>
             </Row>
           </Container>
         </Modal.Body>
