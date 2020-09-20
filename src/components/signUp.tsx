@@ -7,6 +7,11 @@ import { useForm } from "react-hook-form"
 import { yupResolver } from "@hookform/resolvers"
 import * as Yup from "yup"
 
+type Signup = { token: string }
+interface Data {
+  signup: Signup
+}
+
 interface ISignUpFormInputs {
   email: string
   password: string
@@ -64,8 +69,12 @@ const SignUp = () => {
 
   const onSubmit = async (data: ISignUpFormInputs) => {
     try {
-      const { userData } = await signup({
-        variables: { email: data.email, password: data.password },
+      const { userData }: Record<string, any> = await signup({
+        variables: {
+          email: data.email,
+          password: data.password,
+          termsAndConditionsConsent: data.termsAndConditionsConsent,
+        },
       })
       confirm(userData)
     } catch (error) {
@@ -76,10 +85,6 @@ const SignUp = () => {
 
   const saveUserData = (token: string) => {
     localStorage.setItem(AUTH_TOKEN, token)
-  }
-  type Signup = { token: string }
-  interface Data {
-    signup: Signup
   }
 
   const confirm = async (data: Data) => {
