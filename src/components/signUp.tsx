@@ -1,32 +1,16 @@
 import React, { useState, useContext } from "react"
-import { AUTH_TOKEN } from "../constants.js"
+import { AUTH_TOKEN } from "./../constants.js"
 import { gql, useMutation } from "@apollo/client"
-import { navigate } from "@reach/router"
-import Message from "./message"
 import { useLayoutStore } from "../store/layoutStore"
-// import Overlay from "./overlay"
-import {
-  Form,
-  Modal,
-  Button,
-  InputGroup,
-  Col,
-  Container,
-  Row,
-  Tooltip,
-  Overlay,
-  OverlayTrigger,
-} from "react-bootstrap"
-import FormTemplate from "./formTemplate.tsx"
+import { Form, Modal, Button, Col, Container, Row } from "react-bootstrap"
 import { useForm } from "react-hook-form"
 import { yupResolver } from "@hookform/resolvers"
 import * as Yup from "yup"
-import Snackbar from "./snackbar.tsx"
 
 interface ISignUpFormInputs {
   email: string
   password: string
-  passwordComfirmation: string
+  passwordConfirmation: string
   termsAndConditionsConsent: boolean
 }
 
@@ -51,7 +35,7 @@ const SignupSchema = Yup.object().shape({
     .min(8, "Password is too short - should be 8 chars minimum.")
     .matches(/[a-zA-Z]/, "Password can only contain Latin letters."),
   passwordConfirmation: Yup.string().oneOf(
-    [Yup.ref("password"), null],
+    [Yup.ref("password"), undefined],
     "Passwords must match."
   ),
   termsAndConditionsConsent: Yup.boolean().oneOf(
@@ -87,7 +71,6 @@ const SignUp = () => {
     } catch (error) {
       setConnectionError(true)
     }
-    console.log("heyy")
     console.log(data)
   }
 
@@ -102,7 +85,6 @@ const SignUp = () => {
   const confirm = async (data: Data) => {
     const { token } = data.signup
     saveUserData(token)
-    // navigate(`/`)
     store.displayPanelForRegistration = false
     store.displayRegisteredSuccesfullyMessage = true
   }
@@ -115,12 +97,6 @@ const SignUp = () => {
       keyboard={false}
       centered
     >
-      {/* {connectionError && (
-        <Snackbar variant="danger">
-          [server connection error] <br /> Please try again later.
-        </Snackbar>
-      )} */}
-      {/* zrobic w MobX i dodawac snackbary ktore beda wyswietlnae  */}
       <Modal.Header closeButton>
         <Modal.Title>Register</Modal.Title>
       </Modal.Header>
