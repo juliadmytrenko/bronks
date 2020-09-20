@@ -1,6 +1,6 @@
 import React from "react"
-import Registration from "./registration"
-import Login from "./login"
+import SignUp from "./signUp"
+import Login from "./logIn"
 import { useLayoutStore } from "../store/layoutStore"
 import { useObserver } from "mobx-react"
 
@@ -12,7 +12,7 @@ const Main = ({ children }: MainProps) => {
   const store = useLayoutStore()
   return useObserver(() => (
     <main>
-      {store.displayPanelForRegistration && <Registration />}
+      {store.displayPanelForRegistration && <SignUp />}
       {store.displayPanelForLoggingIn && <Login />}
 
       <div className="children">{children}</div>
